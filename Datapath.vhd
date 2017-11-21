@@ -37,8 +37,7 @@ entity Datapath is
 			 out_center_x				 : out STD_LOGIC_VECTOR(MAX_BITS_X - 1 downto 0);
 			 out_center_y				 : out STD_LOGIC_VECTOR(MAX_BITS_Y - 1 downto 0);
 			 out_best_vec_x			 : out STD_LOGIC_VECTOR(MAX_BITS_X - 1 downto 0);
-			 out_best_vec_y			 : out STD_LOGIC_VECTOR(MAX_BITS_Y - 1 downto 0);
-			 out_best_sad				 : out STD_LOGIC_VECTOR(19 downto 0)
+			 out_best_vec_y			 : out STD_LOGIC_VECTOR(MAX_BITS_Y - 1 downto 0)
 	);
 end Datapath;
 
@@ -208,7 +207,6 @@ begin
 		
 	out_best_vec_x <= reg_best_vec_x;
 	out_best_vec_y <= reg_best_vec_y;
-	out_best_sad   <= reg_best_sad;
 	out_center_x	<= reg_center_x;
 	out_center_y	<= reg_center_y;
 

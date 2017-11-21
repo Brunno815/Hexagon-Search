@@ -12,11 +12,11 @@ ARCHITECTURE behavior OF tb_datapath IS
     PORT(
          RST : IN  std_logic;
          CLK : IN  std_logic;
-         initial_center_x : IN  std_logic_vector(65280 downto 0);
-         initial_center_y : IN  std_logic_vector(0 downto 0);
+         initial_center_x : IN  std_logic_vector(MAX_BITS_X - 1 downto 0);
+         initial_center_y : IN  std_logic_vector(MAX_BITS_Y - 1 downto 0);
          initial_best_sad : IN  std_logic_vector(19 downto 0);
-         current_vec_x : IN  std_logic_vector(0 downto 0);
-         current_vec_y : IN  std_logic_vector(0 downto 0);
+         current_vec_x : IN  std_logic_vector(MAX_BITS_X - 1 downto 0);
+         current_vec_y : IN  std_logic_vector(MAX_BITS_Y - 1 downto 0);
          ORG0 : IN  std_logic_vector(7 downto 0);
          ORG1 : IN  std_logic_vector(7 downto 0);
          ORG2 : IN  std_logic_vector(7 downto 0);
@@ -39,10 +39,10 @@ ARCHITECTURE behavior OF tb_datapath IS
          update_center : IN  std_logic;
          update_best_vec : IN  std_logic;
          stop_accum : IN  std_logic;
-         out_center_x : OUT  std_logic_vector(0 downto 0);
-         out_center_y : OUT  std_logic_vector(0 downto 0);
-         out_best_vec_x : OUT  std_logic_vector(0 downto 0);
-         out_best_vec_y : OUT  std_logic_vector(0 downto 0);
+         out_center_x : OUT  std_logic_vector(MAX_BITS_X - 1 downto 0);
+         out_center_y : OUT  std_logic_vector(MAX_BITS_Y - 1 downto 0);
+         out_best_vec_x : OUT  std_logic_vector(MAX_BITS_X - 1 downto 0);
+         out_best_vec_y : OUT  std_logic_vector(MAX_BITS_Y - 1 downto 0);
          out_best_sad : OUT  std_logic_vector(19 downto 0)
         );
     END COMPONENT;
@@ -51,11 +51,11 @@ ARCHITECTURE behavior OF tb_datapath IS
    --Inputs
    signal RST : std_logic := '0';
    signal CLK : std_logic := '0';
-   signal initial_center_x : std_logic_vector(65280 downto 0) := (others => '0');
-   signal initial_center_y : std_logic_vector(0 downto 0) := (others => '0');
+   signal initial_center_x : std_logic_vector(MAX_BITS_X - 1 downto 0) := (others => '0');
+   signal initial_center_y : std_logic_vector(MAX_BITS_Y - 1 downto 0) := (others => '0');
    signal initial_best_sad : std_logic_vector(19 downto 0) := (others => '0');
-   signal current_vec_x : std_logic_vector(0 downto 0) := (others => '0');
-   signal current_vec_y : std_logic_vector(0 downto 0) := (others => '0');
+   signal current_vec_x : std_logic_vector(MAX_BITS_X - 1 downto 0) := (others => '0');
+   signal current_vec_y : std_logic_vector(MAX_BITS_Y - 1 downto 0) := (others => '0');
    signal ORG0 : std_logic_vector(7 downto 0) := (others => '0');
    signal ORG1 : std_logic_vector(7 downto 0) := (others => '0');
    signal ORG2 : std_logic_vector(7 downto 0) := (others => '0');
@@ -80,10 +80,10 @@ ARCHITECTURE behavior OF tb_datapath IS
    signal stop_accum : std_logic := '0';
 
  	--Outputs
-   signal out_center_x : std_logic_vector(0 downto 0);
-   signal out_center_y : std_logic_vector(0 downto 0);
-   signal out_best_vec_x : std_logic_vector(0 downto 0);
-   signal out_best_vec_y : std_logic_vector(0 downto 0);
+   signal out_center_x : std_logic_vector(MAX_BITS_X - 1 downto 0);
+   signal out_center_y : std_logic_vector(MAX_BITS_Y - 1 downto 0);
+   signal out_best_vec_x : std_logic_vector(MAX_BITS_X - 1 downto 0);
+   signal out_best_vec_y : std_logic_vector(MAX_BITS_Y - 1 downto 0);
    signal out_best_sad : std_logic_vector(19 downto 0);
 
    -- Clock period definitions
@@ -143,9 +143,7 @@ BEGIN
    stim_proc: process
    begin		
       -- hold reset state for 100 ns.
-      wait for 100 ns;	
-
-      wait for CLK_period*10;
+      
 
       -- insert stimulus here 
 

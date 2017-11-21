@@ -1,34 +1,39 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
-use work.STD_SAD;
+use work.STD_SAD.ALL;
 
 
 entity UC_Hexagon is
 	Port(
 		RST					: in  STD_LOGIC;
 		CLK					: in  STD_LOGIC;
-		done_req			: in  STD_LOGIC; --FROM MEM/CACHE
-		best_SAD 			: in  STD_LOGIC; --Flag indicating best SAD
-		center_x			: in  STD_LOGIC_VECTOR(MAX_BITS_X - 1 downto 0);
-		center_y			: in  STD_LOGIC_VECTOR(MAX_BITS_Y - 1 downto 0);
+		done_req				: in  STD_LOGIC; --FROM MEM/CACHE
+		is_best_SAD 		: in  STD_LOGIC; --Flag indicating best SAD
+		PU_H					: in  STD_LOGIC_VECTOR(6 downto 0);
+		PU_W					: in  STD_LOGIC_VECTOR(6 downto 0);
+		center_x				: in  STD_LOGIC_VECTOR(MAX_BITS_X - 1 downto 0);
+		center_y				: in  STD_LOGIC_VECTOR(MAX_BITS_Y - 1 downto 0);
 		vec_x_req			: out STD_LOGIC_VECTOR(MAX_BITS_X - 1 downto 0);
 		vec_y_req			: out STD_LOGIC_VECTOR(MAX_BITS_Y - 1 downto 0);
 		en_request			: out STD_LOGIC;
 		load_new_accum		: out STD_LOGIC;
 		en_next_accum		: out STD_LOGIC;
-		update_best_sad		: out STD_LOGIC;
+		update_best_sad	: out STD_LOGIC;
 		sel_best_sad		: out STD_LOGIC;
 		update_center		: out STD_LOGIC;
+		update_best_vec	: out STD_LOGIC;
 		sel_center			: out STD_LOGIC;
 		load_nr_accum		: out STD_LOGIC;
-		done				: out STD_LOGIC
+		stop_accum			: out STD_LOGIC;
+		done					: out STD_LOGIC
 	);
 end UC_Hexagon;
 
 architecture Behavioral of UC_Hexagon is
 
-type t_state is (idle, start, start_req, state_done);
+type t_state is (idle, start, first_hex, sec_hex, third_hex, forth_hex, fifth_hex, sixth_hex, first_square, 
+sec_square, third_square, forth_square, fifth_square, sixth_square, seventh_square, eighth_square, state_done);
 signal state, next_state: t_state;
 
 signal inc_x, reg_inc_x: STD_LOGIC_VECTOR(MAX_BITS_X - 1 downto 0);
@@ -75,43 +80,43 @@ begin
 		
 		case state is
 			when idle =>
-				inc_x			<= (OTHERS => '0');
-				inc_y			<= (OTHERS => '0');
-				nr_iter_x		<= (OTHERS => '0');
-				nr_iter_y		<= (OTHERS => '0');
-				vec_x_req 		<= (OTHERS => '0');
-				vec_y_req 		<= (OTHERS => '0');
-				en_request 		<= '0';
+				inc_x					<= (OTHERS => '0');
+				inc_y					<= (OTHERS => '0');
+				nr_iter_x			<= (OTHERS => '0');
+				nr_iter_y			<= (OTHERS => '0');
+				vec_x_req 			<= (OTHERS => '0');
+				vec_y_req 			<= (OTHERS => '0');
+				en_request 			<= '0';
 				load_new_accum 	<= '0';
-				en_next_accum	<= '0';
-				update_best_sad <= '0';
-				sel_best_sad	<= '0';
-				update_center   <= '0';
-				sel_center 		<= '0';
-				load_nr_accum 	<= '0';
-				done 			<= '0';
-				next_state 		<= start;
+				en_next_accum		<= '0';
+				update_best_sad 	<= '1';
+				sel_best_sad		<= '1';
+				update_center  	<= '1';
+				sel_center 			<= '1';
+				load_nr_accum 		<= '0';
+				done 					<= '0';
+				next_state 			<= start;
 				
 			when start =>
-				inc_x			<= (0 => '1', OTHERS => '0');
-				inc_y			<= (0 => '1', OTHERS => '0');
-				nr_iter_x		<= reg_nr_iter_x + 1;
-				nr_iter_y		<= reg_nr_iter_y + 1;
-				vec_x_req 		<= (OTHERS => '0');
-				vec_y_req 		<= (OTHERS => '0');
-				en_request		<= '0';
+				inc_x					<= (0 => '1', OTHERS => '0');
+				inc_y					<= (0 => '1', OTHERS => '0');
+				nr_iter_x			<= reg_nr_iter_x + 1;
+				nr_iter_y			<= reg_nr_iter_y + 1;
+				vec_x_req 			<= (OTHERS => '0');
+				vec_y_req 			<= (OTHERS => '0');
+				en_request			<= '0';
 				load_new_accum 	<= '0';
-				en_next_accum	<= '0';
-				update_best_sad <= '1';
-				sel_best_sad	<= '1';
-				update_center	<= '1';
-				sel_center		<= '1';
-				load_nr_accum	<= '1';
-				done 			<= '0';
-				next_state 		<= first_hex;
+				en_next_accum		<= '0';
+				update_best_sad	<= '0';
+				sel_best_sad		<= '0';
+				update_center		<= '0';
+				sel_center			<= '0';
+				load_nr_accum		<= '1';
+				done 					<= '0';
+				next_state 			<= first_hex;
 			
 			when first_hex =>
-				if(done_req == '0')
+				if(done_req = '0') then
 					inc_x 			<= inc_x;
 					inc_y 			<= inc_y;
 					nr_iter_x 		<= reg_nr_iter_x;
@@ -128,8 +133,8 @@ begin
 					done 			<= '0';
 					next_state		<= first_hex;
 				else
-					if(reg_nr_iter_x == NR_ITER_X)
-						if(reg_nr_iter_y == NR_ITER_Y)
+					if(reg_nr_iter_x = NR_ITER_X) then
+						if(reg_nr_iter_y = NR_ITER_Y) then
 							inc_x 			<= inc_x;
 							inc_y 			<= inc_y;
 							nr_iter_x 		<= reg_nr_iter_x;
@@ -183,7 +188,7 @@ begin
 				end if;
 
 			when sec_hex =>
-				if(done_req == '0')
+				if(done_req = '0') then
 					inc_x 			<= inc_x;
 					inc_y 			<= inc_y;
 					nr_iter_x 		<= reg_nr_iter_x;
@@ -200,8 +205,8 @@ begin
 					done 			<= '0';
 					next_state		<= first_hex;
 				else
-					if(reg_nr_iter_x == NR_ITER_X)
-						if(reg_nr_iter_y == NR_ITER_Y)
+					if(reg_nr_iter_x = NR_ITER_X) then
+						if(reg_nr_iter_y = NR_ITER_Y) then
 							inc_x 			<= inc_x;
 							inc_y 			<= inc_y;
 							nr_iter_x 		<= reg_nr_iter_x;
@@ -255,7 +260,7 @@ begin
 				end if;
 
 			when third_hex =>
-				if(done_req == '0')
+				if(done_req = '0') then
 					inc_x 			<= inc_x;
 					inc_y 			<= inc_y;
 					nr_iter_x 		<= reg_nr_iter_x;
@@ -272,8 +277,8 @@ begin
 					done 			<= '0';
 					next_state		<= first_hex;
 				else
-					if(reg_nr_iter_x == NR_ITER_X)
-						if(reg_nr_iter_y == NR_ITER_Y)
+					if(reg_nr_iter_x = NR_ITER_X) then
+						if(reg_nr_iter_y = NR_ITER_Y) then
 							inc_x 			<= inc_x;
 							inc_y 			<= inc_y;
 							nr_iter_x		<= reg_nr_iter_x;
@@ -327,7 +332,7 @@ begin
 				end if;
 
 			when forth_hex =>
-				if(done_req == '0')
+				if(done_req = '0') then
 					inc_x 			<= inc_x;
 					inc_y 			<= inc_y;
 					nr_iter_x 		<= reg_nr_iter_x;
@@ -344,8 +349,8 @@ begin
 					done 			<= '0';
 					next_state		<= first_hex;
 				else
-					if(reg_nr_iter_x == NR_ITER_X)
-						if(reg_nr_iter_y == NR_ITER_Y)
+					if(reg_nr_iter_x = NR_ITER_X) then
+						if(reg_nr_iter_y = NR_ITER_Y) then
 							inc_x 			<= inc_x;
 							inc_y 			<= inc_y;
 							nr_iter_x 		<= reg_nr_iter_x;
@@ -399,7 +404,7 @@ begin
 				end if;
 
 			when fifth_hex =>
-				if(done_req == '0')
+				if(done_req = '0') then
 					inc_x 			<= inc_x;
 					inc_y 			<= inc_y;
 					nr_iter_x 		<= reg_nr_iter_x;
@@ -416,8 +421,8 @@ begin
 					done 			<= '0';
 					next_state		<= first_hex;
 				else
-					if(reg_nr_iter_x == NR_ITER_X)
-						if(reg_nr_iter_y == NR_ITER_Y)
+					if(reg_nr_iter_x = NR_ITER_X) then
+						if(reg_nr_iter_y = NR_ITER_Y) then
 							inc_x 			<= inc_x;
 							inc_y 			<= inc_y;
 							nr_iter_x 		<= reg_nr_iter_x;
@@ -471,7 +476,7 @@ begin
 				end if;
 
 			when sixth_hex =>
-				if(done_req == '0')
+				if(done_req = '0') then
 					inc_x 			<= inc_x;
 					inc_y 			<= inc_y;
 					nr_iter_x 		<= reg_nr_iter_x;
@@ -488,8 +493,8 @@ begin
 					done 			<= '0';
 					next_state		<= first_hex;
 				else
-					if(reg_nr_iter_x == NR_ITER_X)
-						if(reg_nr_iter_y == NR_ITER_Y)
+					if(reg_nr_iter_x = NR_ITER_X) then
+						if(reg_nr_iter_y = NR_ITER_Y) then
 							inc_x 			<= inc_x;
 							inc_y 			<= inc_y;
 							nr_iter_x 		<= reg_nr_iter_x;
@@ -544,7 +549,7 @@ begin
 
 
 			when first_square =>
-				if(done_req == '0')
+				if(done_req = '0') then
 					inc_x 			<= inc_x;
 					inc_y 			<= inc_y;
 					nr_iter_x 		<= reg_nr_iter_x;
@@ -561,8 +566,8 @@ begin
 					done 			<= '0';
 					next_state		<= first_hex;
 				else
-					if(reg_nr_iter_x == NR_ITER_X)
-						if(reg_nr_iter_y == NR_ITER_Y)
+					if(reg_nr_iter_x = NR_ITER_X) then
+						if(reg_nr_iter_y = NR_ITER_Y) then
 							inc_x 			<= inc_x;
 							inc_y 			<= inc_y;
 							nr_iter_x 		<= reg_nr_iter_x;
@@ -616,7 +621,7 @@ begin
 				end if;
 
 			when sec_square =>
-				if(done_req == '0')
+				if(done_req = '0') then
 					inc_x 			<= inc_x;
 					inc_y 			<= inc_y;
 					nr_iter_x 		<= reg_nr_iter_x;
@@ -633,8 +638,8 @@ begin
 					done 			<= '0';
 					next_state		<= first_hex;
 				else
-					if(reg_nr_iter_x == NR_ITER_X)
-						if(reg_nr_iter_y == NR_ITER_Y)
+					if(reg_nr_iter_x = NR_ITER_X) then
+						if(reg_nr_iter_y = NR_ITER_Y) then
 							inc_x 			<= inc_x;
 							inc_y 			<= inc_y;
 							nr_iter_x 		<= reg_nr_iter_x;
@@ -689,7 +694,7 @@ begin
 
 
 			when third_square =>
-				if(done_req == '0')
+				if(done_req = '0') then
 					inc_x 			<= inc_x;
 					inc_y 			<= inc_y;
 					nr_iter_x 		<= reg_nr_iter_x;
@@ -706,8 +711,8 @@ begin
 					done 			<= '0';
 					next_state		<= first_hex;
 				else
-					if(reg_nr_iter_x == NR_ITER_X)
-						if(reg_nr_iter_y == NR_ITER_Y)
+					if(reg_nr_iter_x = NR_ITER_X) then
+						if(reg_nr_iter_y = NR_ITER_Y) then
 							inc_x 			<= inc_x;
 							inc_y 			<= inc_y;
 							nr_iter_x 		<= reg_nr_iter_x;
@@ -762,7 +767,7 @@ begin
 
 
 			when forth_square =>
-				if(done_req == '0')
+				if(done_req = '0') then
 					inc_x 			<= inc_x;
 					inc_y 			<= inc_y;
 					nr_iter_x 		<= reg_nr_iter_x;
@@ -779,8 +784,8 @@ begin
 					done 			<= '0';
 					next_state		<= first_hex;
 				else
-					if(reg_nr_iter_x == NR_ITER_X)
-						if(reg_nr_iter_y == NR_ITER_Y)
+					if(reg_nr_iter_x = NR_ITER_X) then
+						if(reg_nr_iter_y = NR_ITER_Y) then
 							inc_x 			<= inc_x;
 							inc_y 			<= inc_y;
 							nr_iter_x 		<= reg_nr_iter_x;
@@ -835,7 +840,7 @@ begin
 
 
 			when fifth_square =>
-				if(done_req == '0')
+				if(done_req = '0') then
 					inc_x 			<= inc_x;
 					inc_y 			<= inc_y;
 					nr_iter_x 		<= reg_nr_iter_x;
@@ -852,8 +857,8 @@ begin
 					done 			<= '0';
 					next_state		<= first_hex;
 				else
-					if(reg_nr_iter_x == NR_ITER_X)
-						if(reg_nr_iter_y == NR_ITER_Y)
+					if(reg_nr_iter_x = NR_ITER_X) then
+						if(reg_nr_iter_y = NR_ITER_Y) then
 							inc_x 			<= inc_x;
 							inc_y 			<= inc_y;
 							nr_iter_x 		<= reg_nr_iter_x;
@@ -908,7 +913,7 @@ begin
 
 
 			when sixth_square =>
-				if(done_req == '0')
+				if(done_req = '0') then
 					inc_x 			<= inc_x;
 					inc_y 			<= inc_y;
 					nr_iter_x 		<= reg_nr_iter_x;
@@ -925,8 +930,8 @@ begin
 					done 			<= '0';
 					next_state		<= first_hex;
 				else
-					if(reg_nr_iter_x == NR_ITER_X)
-						if(reg_nr_iter_y == NR_ITER_Y)
+					if(reg_nr_iter_x = NR_ITER_X) then
+						if(reg_nr_iter_y = NR_ITER_Y) then
 							inc_x 			<= inc_x;
 							inc_y 			<= inc_y;
 							nr_iter_x 		<= reg_nr_iter_x;
@@ -981,7 +986,7 @@ begin
 
 
 			when seventh_square =>
-				if(done_req == '0')
+				if(done_req = '0') then
 					inc_x 			<= inc_x;
 					inc_y 			<= inc_y;
 					nr_iter_x 		<= reg_nr_iter_x;
@@ -998,8 +1003,8 @@ begin
 					done 			<= '0';
 					next_state		<= first_hex;
 				else
-					if(reg_nr_iter_x == NR_ITER_X)
-						if(reg_nr_iter_y == NR_ITER_Y)
+					if(reg_nr_iter_x = NR_ITER_X) then
+						if(reg_nr_iter_y = NR_ITER_Y) then
 							inc_x 			<= inc_x;
 							inc_y 			<= inc_y;
 							nr_iter_x 		<= reg_nr_iter_x;
@@ -1054,7 +1059,7 @@ begin
 
 
 			when eighth_square =>
-				if(done_req == '0')
+				if(done_req = '0') then
 					inc_x 			<= inc_x;
 					inc_y 			<= inc_y;
 					nr_iter_x 		<= reg_nr_iter_x;
@@ -1071,8 +1076,8 @@ begin
 					done 			<= '0';
 					next_state		<= first_hex;
 				else
-					if(reg_nr_iter_x == NR_ITER_X)
-						if(reg_nr_iter_y == NR_ITER_Y)
+					if(reg_nr_iter_x = NR_ITER_X) then
+						if(reg_nr_iter_y = NR_ITER_Y) then
 							inc_x 			<= inc_x;
 							inc_y 			<= inc_y;
 							nr_iter_x 		<= reg_nr_iter_x;

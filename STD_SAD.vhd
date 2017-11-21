@@ -35,12 +35,10 @@ type lines_sub is array(0 to (NR_LINES_CALC*BANDWIDTH)-1) of STD_LOGIC_VECTOR(NR
 constant NR_LVLS_ADDER: integer := log2_unsigned(BANDWIDTH*NR_LINES_CALC);
 -----------------------------------
 
-constant NUM_CANDIDATES: integer := 4;
-
 -------- CACHE RELATED ------------
 constant NR_LINES: integer := 4096;
 constant LINE_SIZE_CACHE: integer := 8; --size of the cache line in bytes
-constant ASSOC: integer := 1;
+constant ASSOC: integer := 4;
 
 subtype line_cache is STD_LOGIC_VECTOR(LINE_SIZE_CACHE*NR_BITS_VIDEO - 1 downto 0);
 
@@ -51,12 +49,12 @@ constant MAX_BITS_Y: integer := log2_unsigned(MAX_HEIGHT)+1;
 
 constant NR_BITS_ADDR: integer := log2_unsigned(NR_LINES);
 
-constant NR_BITS_ADDR_X: integer := NR_BITS_ADDR/2;
+constant NR_BITS_ADDR_X: integer := NR_BITS_ADDR/2 + NR_BITS_ADDR mod 2;
 constant NR_BITS_ADDR_Y: integer := NR_BITS_ADDR/2;
+
 constant NR_BITS_SLICES: integer := log2_unsigned(LINE_SIZE_CACHE-7);
 
 constant NR_BITS_TAG: integer := MAX_BITS_Y - NR_BITS_ADDR + MAX_BITS_X + NR_BITS_ASSOC - NR_BITS_SLICES;
-
 
 type m_vec is
 	record
