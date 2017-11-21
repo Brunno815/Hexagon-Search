@@ -3,18 +3,18 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 
-entity genericAdder is
+entity genericAdd is
 	generic(
-				widthX : integer
+				width : integer
 	);
 	port(
-			a: in std_logic_vector(widthX-1 downto 0);
-			b: in std_logic_vector(widthX-1 downto 0);
-			c: out std_logic_vector(widthX downto 0)
+			a: in std_logic_vector(width-1 downto 0);
+			b: in std_logic_vector(width-1 downto 0);
+			c: out std_logic_vector(width downto 0)
 	);
-end genericAdder;
+end genericAdd;
 
-architecture Behavioral of genericAdder is
+architecture Behavioral of genericAdd is
 
 
 begin

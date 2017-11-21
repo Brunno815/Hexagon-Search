@@ -13,7 +13,7 @@ end top;
 
 
 
-architecture Behavioral of genericSub is
+architecture Behavioral of top is
 
 
 signal sig_C, not_sig_C: STD_LOGIC_VECTOR(8 downto 0);
