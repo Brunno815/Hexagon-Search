@@ -170,6 +170,8 @@ REF7 <= out_barrel(1*8-1 downto 0*8);
 sel_index(0) <= vec_y_req_s(0);
 ---------------------------------------------
 
+vec_x_req <= vec_x_req_s;
+vec_y_req <= vec_y_req_s;
 
 	process(RST, CLK)
 	begin
