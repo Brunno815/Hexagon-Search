@@ -222,6 +222,7 @@ begin
 				
 			when third_cand_hex =>
 				if(reg_nr_iter_y = PU_H-1) then
+					load_current_global_vecs_s <= '1';
 					zero_inc_iter_y	<= '1';
 					sel_cand_inc_x		<= "001";
 					sel_cand_inc_y		<= "010";
@@ -238,6 +239,7 @@ begin
 					done 					<= '0';
 					next_state 			<= forth_cand_hex;
 				else
+					load_current_global_vecs_s <= '0';
 					zero_inc_iter_y		<= '0';
 					sel_cand_inc_x		<= "001";
 					sel_cand_inc_y		<= "010";
@@ -257,6 +259,7 @@ begin
 				
 			when forth_cand_hex =>
 				if(reg_nr_iter_y = PU_H-1) then
+					load_current_global_vecs_s <= '1';
 					zero_inc_iter_y	<= '1';
 					sel_cand_inc_x		<= "010";
 					sel_cand_inc_y		<= "000";
@@ -273,6 +276,7 @@ begin
 					done 					<= '0';
 					next_state 			<= fifth_cand_hex;
 				else
+					load_current_global_vecs_s <= '0';
 					zero_inc_iter_y		<= '0';
 					sel_cand_inc_x		<= "010";
 					sel_cand_inc_y		<= "000";
@@ -292,6 +296,7 @@ begin
 				
 			when fifth_cand_hex =>
 				if(reg_nr_iter_y = PU_H-1) then
+					load_current_global_vecs_s <= '1';
 					zero_inc_iter_y	<= '1';
 					sel_cand_inc_x		<= "001";
 					sel_cand_inc_y		<= "100";
@@ -308,6 +313,7 @@ begin
 					done 					<= '0';
 					next_state 			<= sixth_cand_hex;
 				else
+					load_current_global_vecs_s <= '0';
 					zero_inc_iter_y		<= '0';
 					sel_cand_inc_x		<= "001";
 					sel_cand_inc_y		<= "100";
@@ -327,6 +333,7 @@ begin
 				
 			when sixth_cand_hex =>
 				if(reg_nr_iter_y = PU_H-1) then
+					load_current_global_vecs_s <= '1';
 					zero_inc_iter_y	<= '1';
 					sel_cand_inc_x		<= "011";
 					sel_cand_inc_y		<= "100";
@@ -343,6 +350,7 @@ begin
 					done 					<= '0';
 					next_state 			<= did_best_change;
 				else
+					load_current_global_vecs_s <= '0';
 					zero_inc_iter_y	<= '0';
 					sel_cand_inc_x		<= "011";
 					sel_cand_inc_y		<= "100";
@@ -362,6 +370,7 @@ begin
 
 			when first_cand_square =>
 				if(reg_nr_iter_y = PU_H-1) then
+					load_current_global_vecs_s <= '1';
 					zero_inc_iter_y	<= '1';
 					sel_cand_inc_x		<= "011";
 					sel_cand_inc_y		<= "100";
@@ -378,6 +387,7 @@ begin
 					done 					<= '0';
 					next_state 			<= sec_cand_square;
 				else
+					load_current_global_vecs_s <= '0';
 					zero_inc_iter_y	<= '0';
 					sel_cand_inc_x		<= "011";
 					sel_cand_inc_y		<= "100";
@@ -397,6 +407,7 @@ begin
 				
 			when sec_cand_square =>
 				if(reg_nr_iter_y = PU_H-1) then
+					load_current_global_vecs_s <= '1';
 					zero_inc_iter_y	<= '1';
 					sel_cand_inc_x		<= "011";
 					sel_cand_inc_y		<= "100";
@@ -413,6 +424,7 @@ begin
 					done 					<= '0';
 					next_state 			<= third_cand_square;
 				else
+					load_current_global_vecs_s <= '0';
 					zero_inc_iter_y	<= '0';
 					sel_cand_inc_x		<= "011";
 					sel_cand_inc_y		<= "100";
@@ -432,6 +444,7 @@ begin
 				
 			when third_cand_square =>
 				if(reg_nr_iter_y = PU_H-1) then
+					load_current_global_vecs_s <= '1';
 					zero_inc_iter_y	<= '1';
 					sel_cand_inc_x		<= "011";
 					sel_cand_inc_y		<= "100";
@@ -448,6 +461,7 @@ begin
 					done 					<= '0';
 					next_state 			<= forth_cand_square;
 				else
+					load_current_global_vecs_s <= '0';
 					zero_inc_iter_y	<= '0';
 					sel_cand_inc_x		<= "011";
 					sel_cand_inc_y		<= "100";
@@ -467,6 +481,7 @@ begin
 				
 			when forth_cand_square =>
 				if(reg_nr_iter_y = PU_H-1) then
+					load_current_global_vecs_s <= '1';
 					zero_inc_iter_y	<= '1';
 					sel_cand_inc_x		<= "011";
 					sel_cand_inc_y		<= "100";
@@ -483,6 +498,7 @@ begin
 					done 					<= '0';
 					next_state 			<= fifth_cand_square;
 				else
+					load_current_global_vecs_s <= '0';
 					zero_inc_iter_y	<= '0';
 					sel_cand_inc_x		<= "011";
 					sel_cand_inc_y		<= "100";
@@ -502,6 +518,7 @@ begin
 				
 			when fifth_cand_square =>
 				if(reg_nr_iter_y = PU_H-1) then
+					load_current_global_vecs_s <= '1';
 					zero_inc_iter_y	<= '1';
 					sel_cand_inc_x		<= "011";
 					sel_cand_inc_y		<= "100";
@@ -518,6 +535,7 @@ begin
 					done 					<= '0';
 					next_state 			<= sixth_cand_square;
 				else
+					load_current_global_vecs_s <= '0';
 					zero_inc_iter_y	<= '0';
 					sel_cand_inc_x		<= "011";
 					sel_cand_inc_y		<= "100";
@@ -537,6 +555,7 @@ begin
 				
 			when sixth_cand_square =>
 				if(reg_nr_iter_y = PU_H-1) then
+					load_current_global_vecs_s <= '1';
 					zero_inc_iter_y	<= '1';
 					sel_cand_inc_x		<= "011";
 					sel_cand_inc_y		<= "100";
@@ -553,6 +572,7 @@ begin
 					done 					<= '0';
 					next_state 			<= seventh_cand_square;
 				else
+					load_current_global_vecs_s <= '0';
 					zero_inc_iter_y	<= '0';
 					sel_cand_inc_x		<= "011";
 					sel_cand_inc_y		<= "100";
@@ -572,6 +592,7 @@ begin
 				
 			when seventh_cand_square =>
 				if(reg_nr_iter_y = PU_H-1) then
+					load_current_global_vecs_s <= '1';
 					zero_inc_iter_y	<= '1';
 					sel_cand_inc_x		<= "011";
 					sel_cand_inc_y		<= "100";
@@ -588,6 +609,7 @@ begin
 					done 					<= '0';
 					next_state 			<= eighth_cand_square;
 				else
+					load_current_global_vecs_s <= '0';
 					zero_inc_iter_y	<= '0';
 					sel_cand_inc_x		<= "011";
 					sel_cand_inc_y		<= "100";
@@ -607,6 +629,7 @@ begin
 				
 			when eighth_cand_square =>
 				if(reg_nr_iter_y = PU_H-1) then
+					load_current_global_vecs_s <= '1';
 					zero_inc_iter_y	<= '1';
 					sel_cand_inc_x		<= "011";
 					sel_cand_inc_y		<= "100";
@@ -623,6 +646,7 @@ begin
 					done 					<= '0';
 					next_state 			<= done_ime;
 				else
+					load_current_global_vecs_s <= '0';
 					zero_inc_iter_y	<= '0';
 					sel_cand_inc_x		<= "011";
 					sel_cand_inc_y		<= "100";
