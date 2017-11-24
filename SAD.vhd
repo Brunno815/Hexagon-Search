@@ -25,6 +25,7 @@ entity SAD is
                 REF5                    : in STD_LOGIC_VECTOR(7 downto 0);
                 REF6                    : in STD_LOGIC_VECTOR(7 downto 0);
                 REF7                    : in STD_LOGIC_VECTOR(7 downto 0);
+					 stop_ignoring	  : in STD_LOGIC;
                 stop_accum      : in STD_LOGIC;
                 out_sad         : out STD_LOGIC_VECTOR(19 downto 0)
         );
@@ -60,6 +61,7 @@ signal in_lines_a, in_lines_b: lines_sad;
 signal sub_values: lines_sub;
 signal partial_sad: STD_LOGIC_VECTOR(10 downto 0);
 signal accum_sad, reg_accum_sad, data_gating_feedback: STD_LOGIC_VECTOR(19 downto 0);
+signal partial_after_ignore: STD_LOGIC_VECTOR(10 downto 0);
 signal reg_sub_values: lines_sub;
 
 type t_add1 is array(0 to 3) of STD_LOGIC_VECTOR(8 downto 0);
@@ -142,7 +144,12 @@ begin
          end generate genadd3_j;
 
         partial_sad <= reg_sig_add3(0);
-        accum_sad <= data_gating_feedback + ("000000000" & partial_sad);
+		  
+		  ignore_gating: for i in 0 to 10 generate
+			 partial_after_ignore(i) <= partial_sad(i) and (stop_ignoring);
+		  end generate ignore_gating;
+		  
+		  accum_sad <= data_gating_feedback + ("000000000" & partial_after_ignore);
 
         data_gating: for i in 0 to 19 generate
                 data_gating_feedback(i) <= reg_accum_sad(i) and not(reg_stop_accum3);

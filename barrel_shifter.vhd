@@ -61,18 +61,18 @@ with reg_sel(0) select
 	output_aux <= reg_A(9*8-1 downto 9*8 - 8*8) when '0',
 			 reg_A(8*8-1 downto 0) when OTHERS;
 
-process(RST, CLK)
-begin
-	if(RST = '1') then
-		reg_A <= (OTHERS=>'0');
-		reg_sel <= (OTHERS=>'0');
-		reg_output <= (OTHERS=>'0');
-	elsif(CLK'event and CLK='1') then
+--process(RST, CLK)
+--begin
+--	if(RST = '1') then
+--		reg_A <= (OTHERS=>'0');
+--		reg_sel <= (OTHERS=>'0');
+--		reg_output <= (OTHERS=>'0');
+--	elsif(CLK'event and CLK='1') then
 		reg_A <= A;
 		reg_sel <= sel;
 		reg_output <= output_aux;
-	end if;
-end process;
+--	end if;
+--end process;
 
 output <= reg_output;
 

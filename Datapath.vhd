@@ -29,11 +29,14 @@ entity Datapath is
 			 REF6                    : in STD_LOGIC_VECTOR(7 downto 0);
 			 REF7                    : in STD_LOGIC_VECTOR(7 downto 0);
 			 sel_best_sad				 : in STD_LOGIC;
-			 update_best_sad			 : in STD_LOGIC;
+			 --update_best_sad			 : in STD_LOGIC;
 			 sel_center					 : in STD_LOGIC;
 			 update_center				 : in STD_LOGIC;
-			 update_best_vec			 : in STD_LOGIC;
+			 --update_best_vec			 : in STD_LOGIC;
+			 load_current_global_vecs: in STD_LOGIC;
+			 stop_ignoring				 : in STD_LOGIC;
 			 stop_accum      			 : in STD_LOGIC;
+			 is_best_SAD				 : out STD_LOGIC;
 			 out_center_x				 : out STD_LOGIC_VECTOR(MAX_BITS_X - 1 downto 0);
 			 out_center_y				 : out STD_LOGIC_VECTOR(MAX_BITS_Y - 1 downto 0);
 			 out_best_vec_x			 : out STD_LOGIC_VECTOR(MAX_BITS_X - 1 downto 0);
@@ -65,6 +68,7 @@ architecture Behavioral of Datapath is
 			 REF5                    : in STD_LOGIC_VECTOR(7 downto 0);
 			 REF6                    : in STD_LOGIC_VECTOR(7 downto 0);
 			 REF7                    : in STD_LOGIC_VECTOR(7 downto 0);
+			 stop_ignoring				 : in STD_LOGIC;
 			 stop_accum      			 : in STD_LOGIC;
 			 out_sad         			 : out STD_LOGIC_VECTOR(19 downto 0)
 		);
@@ -90,6 +94,8 @@ signal best_sad, reg_best_sad: STD_LOGIC_VECTOR(19 downto 0);
 signal center_x, center_y, reg_center_x, reg_center_y: STD_LOGIC_VECTOR(MAX_BITS_X - 1 downto 0);
 signal out_sad: STD_LOGIC_VECTOR(19 downto 0);
 signal reg_best_vec_x, reg_best_vec_y: STD_LOGIC_VECTOR(MAX_BITS_X - 1 downto 0);
+signal reg_current_global_vec_x, reg_current_global_vec_y, reg_current_global_vec_x1, reg_current_global_vec_y1: STD_LOGIC_VECTOR(MAX_BITS_X - 1 downto 0);
+signal update_best_vec, better_SAD, reg_better_SAD: STD_LOGIC;
 
 begin
 
@@ -98,7 +104,7 @@ begin
 		if(RST='1') then
 			reg_best_sad <= (OTHERS=>'1');
 		elsif(CLK'event and CLK='1') then
-			if(update_best_sad = '1') then
+			if(update_best_vec = '1') then
 				reg_best_sad <= best_sad;
 			else
 				reg_best_sad <= reg_best_sad;
@@ -132,26 +138,26 @@ begin
 		end if;
 	end process;
 	
-	process(RST,CLK)
+	process(RST,CLK,update_best_vec)
 	begin
 		if(RST='1') then
 			reg_best_vec_x <= (OTHERS=>'0');
 		elsif(CLK'event and CLK='1') then
 			if(update_best_vec = '1') then
-				reg_best_vec_x <= current_vec_x;
+				reg_best_vec_x <= reg_current_global_vec_x;
 			else
 				reg_best_vec_x <= reg_best_vec_x;
 			end if;
 		end if;
 	end process;
 	
-	process(RST,CLK)
+	process(RST,CLK,update_best_vec)
 	begin
 		if(RST='1') then
 			reg_best_vec_y <= (OTHERS=>'0');
 		elsif(CLK'event and CLK='1') then
 			if(update_best_vec = '1') then
-				reg_best_vec_y <= current_vec_y;
+				reg_best_vec_y <= reg_current_global_vec_y;
 			else
 				reg_best_vec_y <= reg_best_vec_y;
 			end if;
@@ -171,15 +177,56 @@ begin
 						reg_best_vec_y when OTHERS;
 
 
+	process(out_sad, reg_best_sad, stop_accum)
+	begin
+		if((out_sad < reg_best_sad) and stop_accum = '1') then
+			update_best_vec <= '1';
+		else
+			update_best_vec <= '0';
+		end if;
+	end process;
+
+	process(RST,CLK,load_current_global_vecs)
+	begin
+		if(RST='1') then
+			reg_current_global_vec_x1 <= (OTHERS=>'0');
+		elsif(CLK'event and CLK='1') then
+			if(load_current_global_vecs = '1') then
+				reg_current_global_vec_x1 <= current_vec_x;
+			end if;
+		end if;
+	end process;
+	
+	process(RST,CLK,load_current_global_vecs)
+	begin
+		if(RST='1') then
+			reg_current_global_vec_y1 <= (OTHERS=>'0');
+		elsif(CLK'event and CLK='1') then
+			if(load_current_global_vecs = '1') then
+				reg_current_global_vec_y1 <= current_vec_y;
+			end if;
+		end if;
+	end process;
 
 
 
+	process(RST,CLK)
+	begin
+		if(RST='1') then
+			reg_current_global_vec_x <= (OTHERS=>'0');
+		elsif(CLK'event and CLK='1') then
+			reg_current_global_vec_x <= reg_current_global_vec_x1;
+		end if;
+	end process;
 
-
-
-
-
-
+	process(RST,CLK)
+	begin
+		if(RST='1') then
+			reg_current_global_vec_y <= (OTHERS=>'0');
+		elsif(CLK'event and CLK='1') then
+			reg_current_global_vec_y <= reg_current_global_vec_y1;
+		end if;
+	end process;
 
 	inst_sad: SAD
 		Port Map(
@@ -201,6 +248,7 @@ begin
 			REF5 => REF5,
 			REF6 => REF6,
 			REF7 => REF7,
+			stop_ignoring	=> stop_ignoring,
 			stop_accum => stop_accum,
 			out_sad => out_sad
 		);

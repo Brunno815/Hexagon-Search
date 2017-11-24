@@ -140,7 +140,9 @@ BEGIN
 		initial_center_x <= (10=>'1', OTHERS=>'0');
 		initial_center_y <= (10=>'1', OTHERS=>'0');
       initial_best_sad <= "01010001000001000001";
-		wait for CLK_period;
+		wait for 1.5*CLK_period;
+		IN_REF2 <= "00010010";
+		ORG2 <= "10001011";
 
       wait;
    end process;
