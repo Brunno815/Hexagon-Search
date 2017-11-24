@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="/home/brunno/TCC/Hexagon Search/tb_top_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="numeric_std" />
+            <top_module name="std_logic_1164" />
+            <top_module name="std_logic_arith" />
+            <top_module name="std_logic_unsigned" />
+            <top_module name="std_sad" />
+            <top_module name="tb_top" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="50" />
+   <wvobject fp_name="/tb_top/rst" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/done_req_mem" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">done_req_mem</obj_property>
+      <obj_property name="ObjectShortName">done_req_mem</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/initial_center_x" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">initial_center_x[10:0]</obj_property>
+      <obj_property name="ObjectShortName">initial_center_x[10:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/initial_center_y" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">initial_center_y[10:0]</obj_property>
+      <obj_property name="ObjectShortName">initial_center_y[10:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/initial_best_sad" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">initial_best_sad[19:0]</obj_property>
+      <obj_property name="ObjectShortName">initial_best_sad[19:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/pu_h" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">pu_h[6:0]</obj_property>
+      <obj_property name="ObjectShortName">pu_h[6:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/pu_w" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">pu_w[6:0]</obj_property>
+      <obj_property name="ObjectShortName">pu_w[6:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_datapath/reg_center_x" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">reg_center_x[10:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_center_x[10:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_datapath/reg_center_y" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">reg_center_y[10:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_center_y[10:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_datapath/reg_best_sad" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">reg_best_sad[19:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_best_sad[19:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/reg_pu_h" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">reg_pu_h[6:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_pu_h[6:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/reg_pu_w" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">reg_pu_w[6:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_pu_w[6:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_datapath/inst_sad/org2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">org2[7:0]</obj_property>
+      <obj_property name="ObjectShortName">org2[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_datapath/inst_sad/ref2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ref2[7:0]</obj_property>
+      <obj_property name="ObjectShortName">ref2[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_barrel/sel" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">sel[0:0]</obj_property>
+      <obj_property name="ObjectShortName">sel[0:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_barrel/output" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">output[63:0]</obj_property>
+      <obj_property name="ObjectShortName">output[63:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_datapath/inst_sad/sub_values" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">sub_values[0:7]</obj_property>
+      <obj_property name="ObjectShortName">sub_values[0:7]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_datapath/inst_sad/partial_sad" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">partial_sad[10:0]</obj_property>
+      <obj_property name="ObjectShortName">partial_sad[10:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_datapath/inst_sad/accum_sad" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">accum_sad[19:0]</obj_property>
+      <obj_property name="ObjectShortName">accum_sad[19:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_datapath/inst_sad/out_sad" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">out_sad[19:0]</obj_property>
+      <obj_property name="ObjectShortName">out_sad[19:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_datapath/inst_sad/data_gating_feedback" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">data_gating_feedback[19:0]</obj_property>
+      <obj_property name="ObjectShortName">data_gating_feedback[19:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_datapath/inst_sad/reg_accum_sad" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">reg_accum_sad[19:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_accum_sad[19:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_datapath/inst_sad/stop_accum" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">stop_accum</obj_property>
+      <obj_property name="ObjectShortName">stop_accum</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/vec_x_req" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">vec_x_req[10:0]</obj_property>
+      <obj_property name="ObjectShortName">vec_x_req[10:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/vec_y_req" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">vec_y_req[10:0]</obj_property>
+      <obj_property name="ObjectShortName">vec_y_req[10:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_uc/rst_nr_iter_y" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rst_nr_iter_y</obj_property>
+      <obj_property name="ObjectShortName">rst_nr_iter_y</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_uc/sel_cand_inc_x" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">sel_cand_inc_x[2:0]</obj_property>
+      <obj_property name="ObjectShortName">sel_cand_inc_x[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_uc/sel_cand_inc_y" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">sel_cand_inc_y[2:0]</obj_property>
+      <obj_property name="ObjectShortName">sel_cand_inc_y[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/best_vec_x" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">best_vec_x[10:0]</obj_property>
+      <obj_property name="ObjectShortName">best_vec_x[10:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/best_vec_y" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">best_vec_y[10:0]</obj_property>
+      <obj_property name="ObjectShortName">best_vec_y[10:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_uc/reg_nr_iter_x" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">reg_nr_iter_x[6:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_nr_iter_x[6:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_uc/reg_nr_iter_y" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">reg_nr_iter_y[6:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_nr_iter_y[6:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_uc/inc_x" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">inc_x[10:0]</obj_property>
+      <obj_property name="ObjectShortName">inc_x[10:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_uc/inc_y" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">inc_y[10:0]</obj_property>
+      <obj_property name="ObjectShortName">inc_y[10:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_datapath/load_current_global_vecs" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">load_current_global_vecs</obj_property>
+      <obj_property name="ObjectShortName">load_current_global_vecs</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_datapath/current_vec_x" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">current_vec_x[10:0]</obj_property>
+      <obj_property name="ObjectShortName">current_vec_x[10:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_datapath/current_vec_y" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">current_vec_y[10:0]</obj_property>
+      <obj_property name="ObjectShortName">current_vec_y[10:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_datapath/reg_current_global_vec_x" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">reg_current_global_vec_x[10:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_current_global_vec_x[10:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_datapath/reg_current_global_vec_y" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">reg_current_global_vec_y[10:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_current_global_vec_y[10:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_datapath/update_best_vec" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">update_best_vec</obj_property>
+      <obj_property name="ObjectShortName">update_best_vec</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_datapath/better_sad" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">better_sad</obj_property>
+      <obj_property name="ObjectShortName">better_sad</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_datapath/reg_better_sad" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">reg_better_sad</obj_property>
+      <obj_property name="ObjectShortName">reg_better_sad</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_datapath/reg_best_vec_x" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">reg_best_vec_x[10:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_best_vec_x[10:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_datapath/reg_best_vec_y" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">reg_best_vec_y[10:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_best_vec_y[10:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/best_vec_x" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">best_vec_x[10:0]</obj_property>
+      <obj_property name="ObjectShortName">best_vec_x[10:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/best_vec_y" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">best_vec_y[10:0]</obj_property>
+      <obj_property name="ObjectShortName">best_vec_y[10:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/done" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">done</obj_property>
+      <obj_property name="ObjectShortName">done</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_uc/state" type="other" db_ref_id="1">
+      <obj_property name="ElementShortName">state</obj_property>
+      <obj_property name="ObjectShortName">state</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_uc/next_state" type="other" db_ref_id="1">
+      <obj_property name="ElementShortName">next_state</obj_property>
+      <obj_property name="ObjectShortName">next_state</obj_property>
+   </wvobject>
+</wave_config>
