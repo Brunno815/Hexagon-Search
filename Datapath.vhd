@@ -29,13 +29,13 @@ entity Datapath is
 			 REF6                    : in STD_LOGIC_VECTOR(7 downto 0);
 			 REF7                    : in STD_LOGIC_VECTOR(7 downto 0);
 			 sel_best_sad				 : in STD_LOGIC;
-			 --update_best_sad			 : in STD_LOGIC;
 			 sel_center					 : in STD_LOGIC;
 			 update_center				 : in STD_LOGIC;
-			 --update_best_vec			 : in STD_LOGIC;
+			 update_initial_sad		 : in STD_LOGIC;
 			 load_current_global_vecs: in STD_LOGIC;
 			 stop_ignoring				 : in STD_LOGIC;
 			 stop_accum      			 : in STD_LOGIC;
+			 zero_reg_best_SAD		 : in STD_LOGIC;
 			 is_best_SAD				 : out STD_LOGIC;
 			 out_center_x				 : out STD_LOGIC_VECTOR(MAX_BITS_X - 1 downto 0);
 			 out_center_y				 : out STD_LOGIC_VECTOR(MAX_BITS_Y - 1 downto 0);
@@ -73,22 +73,6 @@ architecture Behavioral of Datapath is
 			 out_sad         			 : out STD_LOGIC_VECTOR(19 downto 0)
 		);
 	end component;
-	
---		done_req			: in  STD_LOGIC; --FROM MEM/CACHE
---		best_SAD 			: in  STD_LOGIC; --Flag indicating best SAD
---		center_x			: in  STD_LOGIC_VECTOR(MAX_BITS_X - 1 downto 0);
---		center_y			: in  STD_LOGIC_VECTOR(MAX_BITS_Y - 1 downto 0);
---		vec_x_req			: out STD_LOGIC_VECTOR(MAX_BITS_X - 1 downto 0);
---		vec_y_req			: out STD_LOGIC_VECTOR(MAX_BITS_Y - 1 downto 0);
---		en_request			: out STD_LOGIC;
---		load_new_accum		: out STD_LOGIC;
---		en_next_accum		: out STD_LOGIC;
---		update_best_sad		: out STD_LOGIC;
---		sel_best_sad		: out STD_LOGIC;
---		update_center		: out STD_LOGIC;
---		sel_center			: out STD_LOGIC;
---		load_nr_accum		: out STD_LOGIC;
---		done				: out STD_LOGIC
 		
 signal best_sad, reg_best_sad: STD_LOGIC_VECTOR(19 downto 0);
 signal center_x, center_y, reg_center_x, reg_center_y: STD_LOGIC_VECTOR(MAX_BITS_X - 1 downto 0);
@@ -96,6 +80,7 @@ signal out_sad: STD_LOGIC_VECTOR(19 downto 0);
 signal reg_best_vec_x, reg_best_vec_y: STD_LOGIC_VECTOR(MAX_BITS_X - 1 downto 0);
 signal reg_current_global_vec_x, reg_current_global_vec_y, reg_current_global_vec_x1, reg_current_global_vec_y1: STD_LOGIC_VECTOR(MAX_BITS_X - 1 downto 0);
 signal update_best_vec, better_SAD, reg_better_SAD: STD_LOGIC;
+signal reg_is_best_SAD: STD_LOGIC;
 
 begin
 
@@ -104,7 +89,7 @@ begin
 		if(RST='1') then
 			reg_best_sad <= (OTHERS=>'1');
 		elsif(CLK'event and CLK='1') then
-			if(update_best_vec = '1') then
+			if(update_best_vec = '1' or update_initial_sad = '1') then
 				reg_best_sad <= best_sad;
 			else
 				reg_best_sad <= reg_best_sad;
@@ -160,6 +145,23 @@ begin
 				reg_best_vec_y <= reg_current_global_vec_y;
 			else
 				reg_best_vec_y <= reg_best_vec_y;
+			end if;
+		end if;
+	end process;
+	
+	process(RST,CLK,update_best_vec,zero_reg_best_SAD)
+	begin
+		if(RST='1') then
+			reg_is_best_SAD <= '0';
+		elsif(CLK'event and CLK='1') then
+			if(update_best_vec = '1') then
+				reg_is_best_SAD <= '1';
+			else
+				if(zero_reg_best_SAD = '1') then
+					reg_is_best_SAD <= '0';
+				else
+					reg_is_best_SAD <= reg_is_best_SAD;
+				end if;
 			end if;
 		end if;
 	end process;
@@ -257,5 +259,6 @@ begin
 	out_best_vec_y <= reg_best_vec_y;
 	out_center_x	<= reg_center_x;
 	out_center_y	<= reg_center_y;
+	is_best_SAD		<= reg_is_best_SAD;
 
 end Behavioral;

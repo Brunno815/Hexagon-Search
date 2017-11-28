@@ -14,7 +14,7 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="50" />
+   <WVObjectSize size="53" />
    <wvobject fp_name="/tb_top/rst" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">rst</obj_property>
       <obj_property name="ObjectShortName">rst</obj_property>
@@ -66,6 +66,15 @@
       <obj_property name="ElementShortName">reg_best_sad[19:0]</obj_property>
       <obj_property name="ObjectShortName">reg_best_sad[19:0]</obj_property>
       <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_datapath/initial_best_sad" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">initial_best_sad[19:0]</obj_property>
+      <obj_property name="ObjectShortName">initial_best_sad[19:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_datapath/sel_best_sad" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">sel_best_sad</obj_property>
+      <obj_property name="ObjectShortName">sel_best_sad</obj_property>
    </wvobject>
    <wvobject fp_name="/tb_top/uut/reg_pu_h" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">reg_pu_h[6:0]</obj_property>
@@ -175,12 +184,12 @@
    <wvobject fp_name="/tb_top/uut/inst_uc/inc_x" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">inc_x[10:0]</obj_property>
       <obj_property name="ObjectShortName">inc_x[10:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/tb_top/uut/inst_uc/inc_y" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">inc_y[10:0]</obj_property>
       <obj_property name="ObjectShortName">inc_y[10:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/tb_top/uut/inst_datapath/load_current_global_vecs" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">load_current_global_vecs</obj_property>
@@ -249,5 +258,9 @@
    <wvobject fp_name="/tb_top/uut/inst_uc/next_state" type="other" db_ref_id="1">
       <obj_property name="ElementShortName">next_state</obj_property>
       <obj_property name="ObjectShortName">next_state</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/uut/inst_datapath/reg_is_best_sad" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">reg_is_best_sad</obj_property>
+      <obj_property name="ObjectShortName">reg_is_best_sad</obj_property>
    </wvobject>
 </wave_config>

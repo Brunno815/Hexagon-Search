@@ -81,10 +81,12 @@ architecture Behavioral of top is
 		--update_best_sad			: in STD_LOGIC;
 		sel_center					: in STD_LOGIC;
 		update_center				: in STD_LOGIC;
+		update_initial_sad		: in STD_LOGIC;
 		--update_best_vec			: in STD_LOGIC;
 		load_current_global_vecs: in STD_LOGIC;
 		stop_ignoring				: in STD_LOGIC;
 		stop_accum      			: in STD_LOGIC;
+		zero_reg_best_SAD			: in STD_LOGIC;
 		is_best_SAD					: out STD_LOGIC;
 		out_center_x				: out STD_LOGIC_VECTOR(MAX_BITS_X - 1 downto 0);
 		out_center_y				: out STD_LOGIC_VECTOR(MAX_BITS_Y - 1 downto 0);
@@ -114,6 +116,8 @@ architecture Behavioral of top is
 		--update_best_vec	: out STD_LOGIC;
 		sel_center			: out STD_LOGIC;
 		load_nr_accum		: out STD_LOGIC;
+		zero_reg_best_SAD	: out STD_LOGIC;
+		update_initial_sad		: out STD_LOGIC;
 		load_current_global_vecs: out STD_LOGIC;
 		stop_ignoring		: out STD_LOGIC;
 		stop_accum			: out STD_LOGIC;
@@ -127,7 +131,7 @@ signal out_barrel: STD_LOGIC_VECTOR(8*8 - 1 downto 0);
 signal sel_index: STD_LOGIC_VECTOR(0 downto 0);
 ------------------------------------------------------
 signal is_best_SAD_s, en_request_s, load_new_accum_s, en_next_accum_s, update_best_sad_s, sel_best_sad_s, update_center_s, update_best_vec_s, 
-sel_center_s, load_nr_accum_s, load_current_global_vecs_s, stop_ignoring_s, stop_accum_s: STD_LOGIC;
+sel_center_s, load_nr_accum_s, zero_reg_best_SAD_s, update_initial_sad_s, load_current_global_vecs_s, stop_ignoring_s, stop_accum_s: STD_LOGIC;
 signal out_center_x, current_vec_x: STD_LOGIC_VECTOR(MAX_BITS_X - 1 downto 0);
 signal out_center_y, current_vec_y: STD_LOGIC_VECTOR(MAX_BITS_Y - 1 downto 0);
 signal vec_x_req_s: STD_LOGIC_VECTOR(MAX_BITS_X - 1 downto 0);
@@ -237,6 +241,8 @@ vec_y_req <= vec_y_req_s;
 		sel_center 			=> sel_center_s,
 		update_center 		=> update_center_s,
 		--update_best_vec 	=> update_best_vec_s,
+		zero_reg_best_SAD	=> zero_reg_best_SAD_s,
+		update_initial_sad		 => update_initial_sad_s,
 		load_current_global_vecs => load_current_global_vecs_s,
 		stop_ignoring		=> stop_ignoring_s,
 		stop_accum			=> stop_accum_s,
@@ -268,6 +274,8 @@ vec_y_req <= vec_y_req_s;
 		--update_best_vec	=> update_best_vec_s,
 		sel_center			=> sel_center_s,
 		load_nr_accum		=> load_nr_accum_s,
+		zero_reg_best_SAD => zero_reg_best_SAD_s,
+		update_initial_sad		 => update_initial_sad_s,
 		load_current_global_vecs => load_current_global_vecs_s,
 		stop_ignoring		=> stop_ignoring_s,
 		stop_accum			=> stop_accum_s,
