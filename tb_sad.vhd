@@ -60,6 +60,7 @@ ARCHITECTURE behavior OF tb_sad IS
          REF5 : IN  std_logic_vector(7 downto 0);
          REF6 : IN  std_logic_vector(7 downto 0);
          REF7 : IN  std_logic_vector(7 downto 0);
+			stop_ignoring : IN std_logic;
          stop_accum : IN  std_logic;
          out_sad : OUT  std_logic_vector(19 downto 0)
         );
@@ -85,6 +86,7 @@ ARCHITECTURE behavior OF tb_sad IS
    signal REF5 : std_logic_vector(7 downto 0) := (others => '0');
    signal REF6 : std_logic_vector(7 downto 0) := (others => '0');
    signal REF7 : std_logic_vector(7 downto 0) := (others => '0');
+	signal stop_ignoring : std_logic := '1';
    signal stop_accum : std_logic := '0';
 
  	--Outputs
@@ -115,6 +117,7 @@ BEGIN
           REF5 => REF5,
           REF6 => REF6,
           REF7 => REF7,
+			 stop_ignoring => stop_ignoring,
           stop_accum => stop_accum,
           out_sad => out_sad
         );
@@ -137,6 +140,8 @@ BEGIN
 		ORG1 <= "00101001";
 		REF1 <= "10100000";
 		RST <= '0';
+		
+		wait for CLK_period*10;
 		
       wait;
    end process;
